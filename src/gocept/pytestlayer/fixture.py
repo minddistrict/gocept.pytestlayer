@@ -1,8 +1,8 @@
 import contextlib
-import imp
 import pytest
 import re
 import time
+import types
 import zope.dottedname.resolve
 
 
@@ -204,7 +204,7 @@ def parsefactories(collector, layer):
     ns = create(layer)
     if ns:
         name = get_fixture_name(layer, scope='function')
-        module = imp.new_module(name)
+        module = types.ModuleType(name)
         module.__dict__.update(ns)
         collector.session._fixturemanager.parsefactories(module, '')
 
